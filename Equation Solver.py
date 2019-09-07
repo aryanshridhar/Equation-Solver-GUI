@@ -3,10 +3,9 @@ import speech_recognition as sr
 import pyaudio
 import os , shutil , sys
 import webbrowser
-from tkinter import ttk , messagebox as m_box , font , filedialog , Canvas
+from tkinter import ttk , messagebox as m_box , font , filedialog
 
 win = tk.Tk()
-
 win.title("Equation Solver")
 
 # 2 EQUATION 2 SOLVER
@@ -37,28 +36,46 @@ twitter_icon = tk.PhotoImage(file = r"E:\Python Projects\Equation Solver\icons\t
 
 
 # FUNCTIONS
+
+# THEME 
+
+def func_black():
+    page1.config(background = "Black")
+    page2.config(background = "Black")
+def func_red():
+    page1.config(background = "Red")
+    page2.config(background = "Red")    
+def func_default():
+    page1.config(background = "SystemButtonFace")
+    page2.config(background = "SystemButtonFace")  
+def func_blue():
+    page1.config(background = "Blue")
+    page2.config(background = "Blue")
+def func_grey():
+    page1.config(background = "Grey")
+    page2.config(background = "Grey")      
 def func1():
     m_box.showinfo("Histroy location" , f"{os.getcwd()}")      
 def func2(event = ""):
     pass
-    entry_eqn1a.delete(0 ,tk.END)
-    entry_eqn1b.delete(0 ,tk.END)
-    entry_eqn1c.delete(0 ,tk.END)
-    entry_eqn2a.delete(0 ,tk.END)
-    entry_eqn2b.delete(0 ,tk.END)
-    entry_eqn2c.delete(0 ,tk.END)
-    entry_eqn3a.delete(0 ,tk.END)
-    entry_eqn3b.delete(0 ,tk.END)
-    entry_eqn3c.delete(0 ,tk.END)
-    entry_eqn3d.delete(0 ,tk.END)
-    entry_eqn4a.delete(0 ,tk.END)
-    entry_eqn4b.delete(0 ,tk.END)
-    entry_eqn4c.delete(0 ,tk.END)
-    entry_eqn4d.delete(0 ,tk.END)
-    entry_eqn5a.delete(0 ,tk.END)
-    entry_eqn5b.delete(0 ,tk.END)
-    entry_eqn5c.delete(0 ,tk.END)
-    entry_eqn5d.delete(0 ,tk.END)
+    entry_eqn1a.delete(0,tk.END)
+    entry_eqn1b.delete(0,tk.END)
+    entry_eqn1c.delete(0,tk.END)
+    entry_eqn2a.delete(0,tk.END)
+    entry_eqn2b.delete(0,tk.END)
+    entry_eqn2c.delete(0,tk.END)
+    entry_eqn3a.delete(0,tk.END)
+    entry_eqn3b.delete(0,tk.END)
+    entry_eqn3c.delete(0,tk.END)
+    entry_eqn3d.delete(0,tk.END)
+    entry_eqn4a.delete(0,tk.END)
+    entry_eqn4b.delete(0,tk.END)
+    entry_eqn4c.delete(0,tk.END)
+    entry_eqn4d.delete(0,tk.END)
+    entry_eqn5a.delete(0,tk.END)
+    entry_eqn5b.delete(0,tk.END)
+    entry_eqn5c.delete(0,tk.END)
+    entry_eqn5d.delete(0,tk.END)
 
 def func3(event = ""):
     os.startfile(os.getcwd() + r"\History.txt")
@@ -187,13 +204,15 @@ def func13(event = ""):
     win.destroy()            
 
 def askopen():
-    global result
+    global result 
+    result = filedialog.askdirectory(parent = win , initialdir = r"E:\Python Projects\Equation Solver" , title = "Select a Folder")
     try:
-        result = filedialog.askdirectory(parent = win , initialdir = r"E:\Python Projects\Equation Solver" , title = "Select a Folder")
         shutil.move(os.getcwd() + r"\History.txt" , result + r"\History.txt")
         shutil.move(os.getcwd() + r"\Help.txt" , result + r"\Help.txt")
     except FileNotFoundError:
-        pass   
+        pass  
+    except PermissionError:
+        m_box.showerror("Error" , "Permission Error") 
     else:
         try:
             os.chdir(result)
@@ -238,7 +257,18 @@ main_menu.add_cascade(label = "Edit" , menu = edit_menu)
 edit_menu.add_command(label = " Clear All" , command = func2 , accelerator = "Ctrl+C")
 edit_menu.add_separator()
 edit_menu.add_command(label = "Show History" , command = func3 , accelerator="Ctrl+H")
-edit_menu.add_command(label = "Clear Histroy" , command = func4 , accelerator= "Ctrl+D")
+edit_menu.add_command(label = "Clear Histroy" , command = func4 , accelerator= "Ctrl+D") 
+
+# THEME MENU 
+
+theme_menu = tk.Menu(edit_menu , tearoff = 0)
+edit_menu.add_cascade(label = 'Background Colour' , menu = theme_menu)
+theme_menu.add_command(label = "Black" , command = func_black)
+theme_menu.add_command(label = "Red" , command = func_red)
+theme_menu.add_command(label = "Blue" , command = func_blue)
+theme_menu.add_command(label = "Grey" , command = func_grey) 
+theme_menu.add_command(label = "Default" , command = func_default)
+
 
 # HELP MENU
 
@@ -251,6 +281,7 @@ help_menu.add_command(label = "Help" , command = func5 , accelerator = "Ctrl+A" 
 feedback_menu = tk.Menu(main_menu , tearoff = 0)
 main_menu.add_cascade(label = "Feedback" , menu = feedback_menu)
 feedback_menu.add_command(label = "Send Feedback" , command = func6)
+
 
 # DEV MENU
 
@@ -270,16 +301,18 @@ win.config(menu = main_menu)
 # NOTEBOOK
 
 nb = ttk.Notebook(win)
-page1 = ttk.Frame()
-page2= ttk.Frame()
+page1 = tk.Frame()
+page2= tk.Frame()
 nb.add(page1 , text = "2 Equation 2 variable")
 nb.add(page2 , text = "3 Equation 3 variable")
 nb.pack(expand = True , fill = "both")
 
 # LABELFRAME 
 
-label_frame1 = ttk.LabelFrame(page1 , text = "2 Equation 2 variable")
+label_frame1 = tk.LabelFrame(page1 , text = "2 Equation 2 variable")
 label_frame1.grid(row = 0 , column = 0 , padx = 80 , pady = 40)
+
+
 
 # LABELS 
 
