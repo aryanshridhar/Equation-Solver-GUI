@@ -12,7 +12,7 @@ win.title("Equation Solver")
 
 # LINKS 
 
-facebook_link = "https://www.facebook.com/aryan.shridhar.1?ref=bookmarks"
+facebook_link = "https://www.facebook.com/aryan.shridhar.1"
 instagram_link = "https://www.instagram.com/aryanshridhar_007/"
 twitter_link = "https://twitter.com/ShridharAryan"
 gmail_link = "https://mail.google.com/mail/u/0/#inbox"
