@@ -1,0 +1,16 @@
+
+INSTRUCTIONS : 
+
+
+1. Install all the required modules.
+	-pip install pyaudio
+	-pip install webbrowser
+	-pip install SpeechRecognition
+
+	If facing any issues , just download the corresponding whl file from the internet. 
+
+
+2.Change the paths present in line 33-35 of Equation-Solver.py to the path where the files of icons folder are placed in your system.
+
+3. That's It , DONE ! . 
+   You are ready to launch the application . :)
